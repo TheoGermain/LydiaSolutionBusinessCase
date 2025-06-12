@@ -30,7 +30,7 @@ fun ContactListItem(
             .fillMaxWidth()
             .padding(8.dp)) {
             AsyncImage(
-                model = "https://randomuser.me/api/portraits/women/27.jpg",
+                model = contact.pictureUrl,
                 onError = {
                     Log.d("ContactListItem", "Error loading image for contact: ${contact.fullName} ($it)")
                 },
