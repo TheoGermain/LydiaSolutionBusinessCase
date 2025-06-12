@@ -1,14 +1,16 @@
 [versions]
 activityCompose = "1.10.1"
 agp = "8.10.1"
+coil = "3.2.0"
 composeBom = "2025.06.00"
 coreKtx = "1.16.0"
 espressoCore = "3.6.1"
 hiltAndroid = "2.56.2"
+hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 kotlin = "2.1.21"
-ksp = "2.1.20-2.0.1"
+ksp = "2.1.21-2.0.2"
 lifecycleRuntimeKtx = "2.9.1"
 
 [libraries]
@@ -19,6 +21,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -26,6 +29,8 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltAndroid" }
 

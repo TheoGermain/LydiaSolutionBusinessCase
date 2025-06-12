@@ -1,0 +1,12 @@
+package com.example.lydia_solution_business_case.domain.models
+
+data class Contact(
+    val udid: String,
+    val title: String,
+    val firstName: String,
+    val lastName: String,
+    val pictureUrl: String
+) {
+  val fullName: String
+    get() = "$title $firstName $lastName"
+}

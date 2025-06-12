@@ -7,9 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.lydia_solution_business_case.ui.contacts.ContactListScreen
 import com.example.lydia_solution_business_case.ui.theme.LydiaSolutionBusinessCaseTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,20 +23,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             LydiaSolutionBusinessCaseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    ContactListScreen(
+                        viewModel = hiltViewModel(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
