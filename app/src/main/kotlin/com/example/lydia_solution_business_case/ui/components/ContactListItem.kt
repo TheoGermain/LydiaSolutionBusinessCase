@@ -1,6 +1,5 @@
 package com.example.lydia_solution_business_case.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,9 +30,6 @@ fun ContactListItem(
             .padding(8.dp)) {
             AsyncImage(
                 model = contact.pictureUrl,
-                onError = {
-                    Log.d("ContactListItem", "Error loading image for contact: ${contact.fullName} ($it)")
-                },
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
@@ -52,7 +48,7 @@ private fun ContactListItemPreview() {
   ContactListItem(
       contact =
           Contact(
-              udid = "1",
+              slug = "1",
               title = "Mr.",
               firstName = "John",
               lastName = "Doe",

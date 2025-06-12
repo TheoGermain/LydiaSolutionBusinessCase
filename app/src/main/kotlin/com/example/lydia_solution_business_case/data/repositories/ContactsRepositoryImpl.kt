@@ -1,14 +1,18 @@
 package com.example.lydia_solution_business_case.data.repositories
 
-import com.example.lydia_solution_business_case.data.datasources.MockContactsDataSource
+import com.example.lydia_solution_business_case.data.datasources.ContactApi
+import com.example.lydia_solution_business_case.data.remote.models.ContactDto
+import com.example.lydia_solution_business_case.data.remote.models.toDomain
 import com.example.lydia_solution_business_case.domain.models.Contact
 import com.example.lydia_solution_business_case.domain.repositories.ContactsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ContactsRepositoryImpl @Inject constructor() : ContactsRepository {
+class ContactsRepositoryImpl @Inject constructor(
+    private val contactApi: ContactApi,
+) : ContactsRepository {
   override fun getContacts(): Flow<List<Contact>> = flow {
-    emit(MockContactsDataSource.getMockContacts())
+    emit(contactApi.getContacts().results.map(ContactDto::toDomain))
   }
 }

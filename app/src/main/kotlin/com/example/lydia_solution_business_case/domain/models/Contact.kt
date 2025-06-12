@@ -1,7 +1,7 @@
 package com.example.lydia_solution_business_case.domain.models
 
 data class Contact(
-    val udid: String,
+    val slug: String,
     val title: String,
     val firstName: String,
     val lastName: String,
