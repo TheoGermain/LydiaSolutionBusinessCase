@@ -11,6 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -25,19 +26,22 @@ fun ContactListItem(
     modifier: Modifier = Modifier,
 ) {
     Card {
-        Row(modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp)) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
                 model = contact.pictureUrl,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(48.dp)
+                    .size(64.dp)
                     .clip(CircleShape)
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(contact.fullName, style = MaterialTheme.typography.bodyLarge)
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(contact.fullName, style = MaterialTheme.typography.titleLarge)
         }
     }
 }
@@ -45,14 +49,14 @@ fun ContactListItem(
 @Preview
 @Composable
 private fun ContactListItemPreview() {
-  ContactListItem(
-      contact =
-          Contact(
-              slug = "1",
-              title = "Mr.",
-              firstName = "John",
-              lastName = "Doe",
-              pictureUrl = "https://example.com/john_doe.jpg",
-          ),
-  )
+    ContactListItem(
+        contact =
+            Contact(
+                slug = "1",
+                title = "Mr.",
+                firstName = "John",
+                lastName = "Doe",
+                pictureUrl = "https://example.com/john_doe.jpg",
+            ),
+    )
 }
