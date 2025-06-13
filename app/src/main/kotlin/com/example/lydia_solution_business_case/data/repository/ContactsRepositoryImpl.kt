@@ -1,8 +1,8 @@
-package com.example.lydia_solution_business_case.data.repositories
+package com.example.lydia_solution_business_case.data.repository
 
-import com.example.lydia_solution_business_case.data.datasources.ContactApi
-import com.example.lydia_solution_business_case.data.remote.models.ContactDto
-import com.example.lydia_solution_business_case.data.remote.models.toDomain
+import com.example.lydia_solution_business_case.data.api.ContactApi
+import com.example.lydia_solution_business_case.data.remote.model.ContactDto
+import com.example.lydia_solution_business_case.data.remote.model.toDomain
 import com.example.lydia_solution_business_case.domain.models.Contact
 import com.example.lydia_solution_business_case.domain.repositories.ContactsRepository
 import kotlinx.coroutines.flow.Flow

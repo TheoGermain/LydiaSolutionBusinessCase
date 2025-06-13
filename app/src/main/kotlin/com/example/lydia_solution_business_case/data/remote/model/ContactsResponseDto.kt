@@ -1,17 +1,17 @@
-package com.example.lydia_solution_business_case.data.remote.models
+package com.example.lydia_solution_business_case.data.remote.model
 
 import com.example.lydia_solution_business_case.domain.models.Contact
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ContactsResponse(
+data class ContactsResponseDto(
     val results: List<ContactDto>,
 )
 
 @JsonClass(generateAdapter = true)
 data class ContactDto(
     val name: NameDto,
-    val id: IdDto,
+    val login: LoginDto,
     val picture: PictureDto,
 )
 
@@ -23,8 +23,8 @@ data class NameDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class IdDto(
-    val value: String?,
+data class LoginDto(
+    val uuid: String,
 )
 
 @JsonClass(generateAdapter = true)
@@ -33,7 +33,7 @@ data class PictureDto(
 )
 
 fun ContactDto.toDomain() = Contact(
-    slug = "${id.value ?: ""}-${name.title}-${name.first}-${name.last}".lowercase(),
+    id = login.uuid,
     title = name.title,
     firstName = name.first,
     lastName = name.last,

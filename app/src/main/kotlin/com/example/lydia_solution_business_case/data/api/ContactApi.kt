@@ -1,6 +1,6 @@
-package com.example.lydia_solution_business_case.data.datasources
+package com.example.lydia_solution_business_case.data.api
 
-import com.example.lydia_solution_business_case.data.remote.models.ContactsResponse
+import com.example.lydia_solution_business_case.data.remote.model.ContactsResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +10,5 @@ interface ContactApi {
       @Query("seed") seed: String = "lydia",
       @Query("results") results: Int = 20,
       @Query("page") page: Int = 1
-  ): ContactsResponse
+  ): ContactsResponseDto
 }

@@ -1,12 +1,19 @@
+@file:Suppress("unused")
+
 package com.example.lydia_solution_business_case.data
 
-import com.example.lydia_solution_business_case.data.datasources.ContactApi
-import com.example.lydia_solution_business_case.data.repositories.ContactsRepositoryImpl
+import android.content.Context
+import androidx.room.Room
+import com.example.lydia_solution_business_case.data.api.ContactApi
+import com.example.lydia_solution_business_case.data.db.ContactDao
+import com.example.lydia_solution_business_case.data.db.LocalDatabase
+import com.example.lydia_solution_business_case.data.repository.ContactsRepositoryImpl
 import com.example.lydia_solution_business_case.domain.repositories.ContactsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +25,7 @@ import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataModule {
+abstract class RepositoryModule {
 
   @Binds
   @Singleton
@@ -49,4 +56,26 @@ object NetworkModule {
   @Singleton
   fun provideContactApi(retrofit: Retrofit): ContactApi =
     retrofit.create(ContactApi::class.java)
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+
+  @Provides
+  @Singleton
+  fun provideDatabase(
+    @ApplicationContext context: Context
+  ): LocalDatabase {
+    return Room.databaseBuilder(
+      context,
+      LocalDatabase::class.java,
+      LocalDatabase.DATABASE_NAME,
+    ).build()
+  }
+
+  @Provides
+  fun provideItemDao(database: LocalDatabase): ContactDao {
+    return database.contactDao()
+  }
 }

@@ -52,7 +52,7 @@ private fun ContactListItemPreview() {
     ContactListItem(
         contact =
             Contact(
-                slug = "1",
+                id = "1",
                 title = "Mr.",
                 firstName = "John",
                 lastName = "Doe",
