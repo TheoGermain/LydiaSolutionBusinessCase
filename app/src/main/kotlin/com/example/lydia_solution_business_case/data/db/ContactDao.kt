@@ -8,9 +8,18 @@ import androidx.room.Query
 
 @Dao
 interface ContactDao {
-    @Query("SELECT * FROM contacts ORDER BY id ASC")
+    @Query("SELECT * FROM contacts ORDER BY indexInResponse ASC")
     fun pagingSource(): PagingSource<Int, ContactEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(items: List<ContactEntity>)
+
+    @Query("SELECT MAX(page) FROM contacts")
+    suspend fun getMaxPage(): Int?
+
+    @Query("SELECT COUNT(*) FROM contacts")
+    suspend fun countItems(): Int
+
+    @Query("DELETE FROM contacts")
+    suspend fun clearAll()
 }
