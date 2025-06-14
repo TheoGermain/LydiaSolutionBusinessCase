@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lydia_solution_business_case"
+    namespace = "com.example.lydiasolutionbusinesscase"
     compileSdk = 36
 
     defaultConfig {
@@ -74,19 +74,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-subprojects {
-    apply(plugin = "com.diffplug.spotless")
-    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-        kotlin {
-            target("**/*.kt")
-            targetExclude("${layout.buildDirectory}/**/*.kt")
+spotless {
+    val ktlintVersion = "0.49.1"
+    kotlin {
+        target("**/*.kt")
+        targetExclude("${layout.buildDirectory}/**/*.kt")
+        targetExclude("bin/**/*.kt")
+        ktlint(ktlintVersion)
+    }
 
-            ktlint()
-        }
-
-        kotlinGradle {
-            target("*.gradle.kts")
-            ktlint()
-        }
+    kotlinGradle {
+        targetExclude("${layout.buildDirectory}/**/*.kts")
+        ktlint(ktlintVersion)
     }
 }
