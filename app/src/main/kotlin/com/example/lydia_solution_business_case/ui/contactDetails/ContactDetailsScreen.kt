@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Phone
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -35,6 +34,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
@@ -42,6 +43,7 @@ import com.example.lydia_solution_business_case.R
 import com.example.lydia_solution_business_case.domain.models.Contact
 import com.example.lydia_solution_business_case.ui.components.ContactInfoCard
 import androidx.core.net.toUri
+import com.example.lydia_solution_business_case.ui.components.ContactAddressCard
 import com.example.lydia_solution_business_case.ui.components.QuickActionButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +56,16 @@ fun ContactDetailsScreen(
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(
-            title = {},
+            title = {
+                val state = uiState
+                if (state is ContactDetailsUiState.Success) {
+                    Text(
+                        text = "${state.contact.firstName} ${state.contact.lastName}",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            },
             navigationIcon = {
                 IconButton(onClick = goBack) {
                     Icon(
@@ -66,23 +77,32 @@ fun ContactDetailsScreen(
         )
     }) { innerPadding ->
         when (val state = uiState) {
-            is ContactDetailsUiState.Loading -> {
-                Box(contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
-            }
+            is ContactDetailsUiState.Loading -> ContactDetailsLoadingScreen()
 
-            is ContactDetailsUiState.Error -> {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(state.message)
-                }
-            }
+            is ContactDetailsUiState.Error -> ContactDetailsErrorScreen()
 
-            is ContactDetailsUiState.Success -> {
-                val contact = (uiState as ContactDetailsUiState.Success).contact
-                ContactDetailsContent(contact = contact, modifier = Modifier.padding(innerPadding))
-            }
+            is ContactDetailsUiState.Success -> ContactDetailsContent(
+                contact = state.contact,
+                modifier = Modifier.padding(innerPadding),
+            )
         }
+    }
+}
+
+@Composable
+private fun ContactDetailsLoadingScreen() {
+    Box(contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ContactDetailsErrorScreen() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+    ) {
+        Text(stringResource(R.string.generic_error), textAlign = TextAlign.Center)
     }
 }
 
@@ -167,25 +187,5 @@ private fun QuickActionsRow(
                 context.startActivity(intent)
             }
         )
-    }
-}
-
-@Composable
-fun ContactAddressCard(
-    address: String,
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(
-                text = stringResource(R.string.address),
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(text = address)
-        }
     }
 }

@@ -8,6 +8,6 @@
     <string name="cell">Cell</string>
     <string name="call">Call</string>
     <string name="loading_contacts">Loading contacts</string>
-    <string name="generic_error">An error occurred while loading contacts, please retry later.</string>
+    <string name="generic_error">An error occurred, please retry later.</string>
     <string name="retry">Retry</string>
 </resources>

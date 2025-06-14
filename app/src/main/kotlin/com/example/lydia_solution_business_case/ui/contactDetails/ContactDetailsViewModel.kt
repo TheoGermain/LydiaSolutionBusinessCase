@@ -9,6 +9,8 @@ import com.example.lydia_solution_business_case.domain.usecases.GetContactUseCas
 import com.example.lydia_solution_business_case.navigation.ContactDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -21,14 +23,21 @@ class ContactDetailsViewModel @Inject constructor(
 
     private val contactId = savedStateHandle.toRoute<ContactDetails>().contactId
 
-    val uiState = getContactUseCase(contactId).map {
-        ContactDetailsUiState.Success(it)
-    }
-        .stateIn(viewModelScope, initialValue = ContactDetailsUiState.Loading, started = WhileSubscribed(5000))
+    val uiState: StateFlow<ContactDetailsUiState> =
+        getContactUseCase(contactId).map<Contact, ContactDetailsUiState> { contact ->
+            ContactDetailsUiState.Success(contact)
+        }.catch { exception ->
+            emit(ContactDetailsUiState.Error)
+        }
+            .stateIn(
+                viewModelScope,
+                initialValue = ContactDetailsUiState.Loading,
+                started = WhileSubscribed(5000),
+            )
 }
 
 sealed class ContactDetailsUiState {
     data class Success(val contact: Contact) : ContactDetailsUiState()
-    data class Error(val message: String) : ContactDetailsUiState()
+    data object Error : ContactDetailsUiState()
     data object Loading : ContactDetailsUiState()
 }
