@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContactDao {
@@ -22,4 +23,7 @@ interface ContactDao {
 
     @Query("DELETE FROM contacts")
     suspend fun clearAll()
+
+    @Query("SELECT * FROM contacts WHERE id = :id LIMIT 1")
+    fun getContactById(id: String): Flow<ContactEntity>
 }

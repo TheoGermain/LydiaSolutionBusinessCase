@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ContactsRepository {
     fun getContacts(): Flow<PagingData<Contact>>
+
+    fun getContactById(id: String): Flow<Contact>
 }

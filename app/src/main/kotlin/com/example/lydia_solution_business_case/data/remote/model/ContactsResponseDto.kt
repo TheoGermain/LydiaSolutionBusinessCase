@@ -18,7 +18,11 @@ data class InfoDto(
 @JsonClass(generateAdapter = true)
 data class ContactDto(
     val name: NameDto,
+    val location: LocationDto,
+    val email: String,
     val login: LoginDto,
+    val phone: String,
+    val cell: String,
     val picture: PictureDto,
 )
 
@@ -39,6 +43,20 @@ data class PictureDto(
     val large: String,
 )
 
+@JsonClass(generateAdapter = true)
+data class LocationDto(
+    val city: String,
+    val state: String,
+    val country: String,
+    val street: StreetDto,
+)
+
+@JsonClass(generateAdapter = true)
+data class StreetDto(
+    val number: Int,
+    val name: String,
+)
+
 fun ContactDto.toEntity(page: Int, index: Int) = ContactEntity(
     id = login.uuid,
     page = page,
@@ -46,5 +64,9 @@ fun ContactDto.toEntity(page: Int, index: Int) = ContactEntity(
     firstName = name.first,
     lastName = name.last,
     pictureUrl = picture.large,
-    indexInResponse = (page - 1) * PAGE_SIZE + index
+    indexInResponse = (page - 1) * PAGE_SIZE + index,
+    address = with(location) { "${street.number} ${street.name}, $city, $state, $country" },
+    email = email,
+    phone = phone,
+    cell = cell
 )

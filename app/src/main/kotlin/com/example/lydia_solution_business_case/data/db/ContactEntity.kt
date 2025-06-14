@@ -11,6 +11,10 @@ data class ContactEntity(
     val firstName: String,
     val lastName: String,
     val pictureUrl: String,
+    val address: String,
+    val email: String,
+    val phone: String,
+    val cell: String,
     val page: Int,
     val indexInResponse: Int,
 )
@@ -20,5 +24,9 @@ fun ContactEntity.toDomain() = Contact(
     title = title,
     firstName = firstName,
     lastName = lastName,
-    pictureUrl = pictureUrl
+    pictureUrl = pictureUrl,
+    address = address,
+    email = email,
+    phone = phone,
+    cell = cell,
 )

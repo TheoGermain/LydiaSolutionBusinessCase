@@ -57,6 +57,10 @@ private fun ContactListItemPreview() {
                 firstName = "John",
                 lastName = "Doe",
                 pictureUrl = "https://example.com/john_doe.jpg",
+                address = "123 Main St, Springfield",
+                email = "john.doe@email.com",
+                phone = "123-456-7890",
+                cell = "987-654-3210",
             ),
     )
 }

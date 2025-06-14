@@ -1,5 +1,6 @@
 package com.example.lydia_solution_business_case.ui.contacts
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import com.example.lydia_solution_business_case.ui.components.ContactListItem
 @Composable
 fun ContactListScreen(
     viewModel: ContactListViewModel,
+    navigateToDetails: (String) -> Unit,
 ) {
     val contacts = viewModel.contacts.collectAsLazyPagingItems()
 
@@ -50,7 +52,13 @@ fun ContactListScreen(
             items(
                 contacts.itemCount,
                 key = contacts.itemKey { it.id }
-            ) { index -> contacts[index]?.let { contact -> ContactListItem(contact = contact) } }
+            ) { index ->
+                contacts[index]?.let { contact ->
+                    ContactListItem(
+                        modifier = Modifier.clickable { navigateToDetails(contact.id) }, contact = contact
+                    )
+                }
+            }
 
             if (contacts.loadState.append is LoadState.Loading) {
                 item {

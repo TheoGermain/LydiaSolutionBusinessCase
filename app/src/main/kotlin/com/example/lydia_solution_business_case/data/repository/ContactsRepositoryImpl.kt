@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.lydia_solution_business_case.data.PAGE_SIZE
 import com.example.lydia_solution_business_case.data.api.ContactApi
+import com.example.lydia_solution_business_case.data.db.ContactEntity
 import com.example.lydia_solution_business_case.data.db.LocalDatabase
 import com.example.lydia_solution_business_case.data.db.toDomain
 import com.example.lydia_solution_business_case.domain.models.Contact
@@ -30,4 +31,7 @@ class ContactsRepositoryImpl @Inject constructor(
     ).flow.map { pagingData ->
         pagingData.map { entity -> entity.toDomain() }
     }
+
+    override fun getContactById(id: String): Flow<Contact> =
+        db.contactDao().getContactById(id).map(ContactEntity::toDomain)
 }

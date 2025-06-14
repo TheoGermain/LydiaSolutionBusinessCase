@@ -5,7 +5,11 @@ data class Contact(
     val title: String,
     val firstName: String,
     val lastName: String,
-    val pictureUrl: String
+    val pictureUrl: String,
+    val address: String,
+    val email: String,
+    val phone: String,
+    val cell: String,
 ) {
   val fullName: String
     get() = "$title $firstName $lastName"
