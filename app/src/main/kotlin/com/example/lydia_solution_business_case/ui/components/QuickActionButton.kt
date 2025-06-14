@@ -1,5 +1,6 @@
 package com.example.lydia_solution_business_case.ui.components
 
+import android.R.attr.contentDescription
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -14,6 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lydia_solution_business_case.R
@@ -26,6 +31,10 @@ fun QuickActionButton(
     onClick: () -> Unit,
 ) {
     Column(
+        modifier = Modifier.clearAndSetSemantics {
+            role = Role.Button
+            contentDescription = description
+        },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {

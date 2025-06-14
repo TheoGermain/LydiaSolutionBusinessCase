@@ -41,7 +41,7 @@ fun ContactInfoCard(
                 icon = {
                     Icon(
                         Icons.Outlined.Phone,
-                        contentDescription = stringResource(R.string.phone),
+                        contentDescription = null,
                     )
                 },
                 description = R.string.phone,
@@ -51,7 +51,7 @@ fun ContactInfoCard(
                 icon = {
                     Icon(
                         Icons.Outlined.Phone,
-                        contentDescription = stringResource(R.string.cell),
+                        contentDescription = null,
                     )
                 },
                 description = R.string.cell,
@@ -61,7 +61,7 @@ fun ContactInfoCard(
                 icon = {
                     Icon(
                         Icons.Outlined.Email,
-                        contentDescription = stringResource(R.string.email),
+                        contentDescription = null,
                     )
                 },
                 description = R.string.email,

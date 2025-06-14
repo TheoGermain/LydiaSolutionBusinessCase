@@ -71,7 +71,7 @@ fun ContactDetailsScreen(
                 IconButton(onClick = goBack) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+                        contentDescription = stringResource(R.string.back)
                     )
                 }
             }
