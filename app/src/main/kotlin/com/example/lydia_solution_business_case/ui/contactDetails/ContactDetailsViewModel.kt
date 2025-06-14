@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.example.lydia_solution_business_case.domain.models.Contact
-import com.example.lydia_solution_business_case.domain.repositories.ContactsRepository
+import com.example.lydia_solution_business_case.domain.usecases.GetContactUseCase
 import com.example.lydia_solution_business_case.navigation.ContactDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
@@ -16,12 +16,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ContactDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    repository: ContactsRepository,
+    getContactUseCase: GetContactUseCase,
 ) : ViewModel() {
 
     private val contactId = savedStateHandle.toRoute<ContactDetails>().contactId
 
-    val uiState = repository.getContactById(contactId).map {
+    val uiState = getContactUseCase(contactId).map {
         ContactDetailsUiState.Success(it)
     }
         .stateIn(viewModelScope, initialValue = ContactDetailsUiState.Loading, started = WhileSubscribed(5000))
