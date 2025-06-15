@@ -47,7 +47,7 @@ fun ContactListScreen(
     LaunchedEffect(contacts.loadState.append) {
         if (contacts.loadState.append is LoadState.Error) {
             val result = snackbarHostState.showSnackbar(
-                message = context.getString(R.string.generic_error),
+                message = context.getString(R.string.append_contacts_error),
                 actionLabel = context.getString(R.string.retry),
             )
             if (result == SnackbarResult.ActionPerformed) {
@@ -88,7 +88,7 @@ private fun ContactListErrorScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(stringResource(R.string.generic_error))
+        Text(stringResource(R.string.append_contacts_error))
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = onRetry,

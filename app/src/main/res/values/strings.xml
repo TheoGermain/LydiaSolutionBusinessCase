@@ -9,6 +9,7 @@
     <string name="call">Call</string>
     <string name="loading_contacts">Loading contacts</string>
     <string name="generic_error">An error occurred, please retry later.</string>
+    <string name="append_contacts_error">Unable to retrieve more contacts, check your connection and try again later.</string>
     <string name="retry">Retry</string>
     <string name="back">Back</string>
 </resources>
