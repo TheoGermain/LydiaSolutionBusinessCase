@@ -34,15 +34,6 @@ abstract class RepositoryModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CoroutineDispatchersModule {
-
-    @Provides
-    @Named("IO")
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Provides
