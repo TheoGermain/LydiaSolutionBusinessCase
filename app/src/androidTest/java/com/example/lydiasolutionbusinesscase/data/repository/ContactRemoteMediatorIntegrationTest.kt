@@ -51,15 +51,19 @@ class ContactRemoteMediatorIntegrationTest {
 
     @Test
     fun initialize_shouldLaunchInitialRefresh_whenDatabaseIsEmpty() = runTest {
+        // GIVEN
         val mediator = ContactRemoteMediator(db, fakeApi)
 
+        // WHEN
         val result = mediator.initialize()
 
+        // THEN
         assertEquals(RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH, result)
     }
 
     @Test
     fun initialize_shouldSkipInitialRefresh_whenDatabaseIsNotEmpty() = runTest {
+        // GIVEN
         db.contactDao().insertAll(
             listOf(
                 ContactEntity(
@@ -80,8 +84,10 @@ class ContactRemoteMediatorIntegrationTest {
 
         val mediator = ContactRemoteMediator(db, fakeApi)
 
+        // WHEN
         val result = mediator.initialize()
 
+        // THEN
         assertEquals(RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH, result)
     }
 

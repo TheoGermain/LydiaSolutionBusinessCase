@@ -22,8 +22,10 @@ class ContactsRepositoryImplTest {
     private val mockApi: ContactApi = mockk()
     private lateinit var repository: ContactsRepository
 
+    private val contactId = "123"
+
     private val entity = ContactEntity(
-        id = "123",
+        id = contactId,
         firstName = "Alice",
         lastName = "Durand",
         title = "Mme",
@@ -52,10 +54,10 @@ class ContactsRepositoryImplTest {
     fun `getContactById should return mapped Contact from DAO`() = runTest {
         // GIVEN
         repository = ContactsRepositoryImpl(api = mockApi, db = mockDb)
-        every { mockDao.getContactById("123") } returns flowOf(entity)
+        every { mockDao.getContactById(contactId) } returns flowOf(entity)
 
         // WHEN & THEN
-        repository.getContactById("123").test {
+        repository.getContactById(contactId).test {
             val item = awaitItem()
             assertEquals(expectedContactModel, item)
             cancelAndIgnoreRemainingEvents()
