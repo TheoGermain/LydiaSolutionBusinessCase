@@ -1,16 +1,13 @@
 package com.example.lydiasolutionbusinesscase.ui
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
 import app.cash.turbine.test
 import com.example.lydiasolutionbusinesscase.domain.models.Contact
 import com.example.lydiasolutionbusinesscase.domain.usecases.GetContactUseCase
-import com.example.lydiasolutionbusinesscase.navigation.ContactDetails
 import com.example.lydiasolutionbusinesscase.ui.contactDetails.ContactDetailsUiState
 import com.example.lydiasolutionbusinesscase.ui.contactDetails.ContactDetailsViewModel
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
@@ -59,7 +56,7 @@ class ContactDetailsViewModelTest {
         every { getContactUseCase(contactId) } returns flowOf(contact)
 
         val savedStateHandle = mockk<SavedStateHandle>()
-        savedStateHandle.mockkToRoute(ContactDetails(contactId = contactId))
+        //savedStateHandle.mockkToRoute(ContactDetails(contactId = contactId))
 
         viewModel = ContactDetailsViewModel(savedStateHandle, getContactUseCase)
 
@@ -79,7 +76,7 @@ class ContactDetailsViewModelTest {
         }
 
         val savedStateHandle = mockk<SavedStateHandle>()
-        savedStateHandle.mockkToRoute(ContactDetails(contactId = contactId))
+       // savedStateHandle.mockkToRoute(ContactDetails(contactId = contactId))
 
         viewModel = ContactDetailsViewModel(savedStateHandle, getContactUseCase)
 
@@ -92,7 +89,8 @@ class ContactDetailsViewModelTest {
     }
 }
 
+/*
 inline fun <reified T : Any> SavedStateHandle.mockkToRoute(route: T) {
     mockkStatic("androidx.navigation.SavedStateHandleKt")
     every { this@mockkToRoute.toRoute<T>() } returns route
-}
+}*/
