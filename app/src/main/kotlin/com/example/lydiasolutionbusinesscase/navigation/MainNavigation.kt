@@ -1,12 +1,17 @@
 package com.example.lydiasolutionbusinesscase.navigation
 
+import android.util.Log
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
@@ -16,6 +21,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
+import com.example.lydiasolutionbusinesscase.R
 import com.example.lydiasolutionbusinesscase.ui.contactDetails.ContactDetailsScreen
 import com.example.lydiasolutionbusinesscase.ui.contactDetails.ContactDetailsViewModel
 import com.example.lydiasolutionbusinesscase.ui.contacts.ContactListScreen
@@ -54,14 +60,23 @@ fun MainNavigation() {
         entryProvider = entryProvider {
             entry<ContactList>(
                 metadata = ListDetailSceneStrategy.listPane(
-                    /*detailPlaceholder = {
-                        ContentYellow("Choose a product from the list")
-                    }*/
+                    detailPlaceholder = {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(stringResource(R.string.choose_a_contact_from_the_list))
+                        }
+                    }
                 ),
             ) {
                 ContactListScreen(
                     viewModel = hiltViewModel(),
-                    navigateToDetails = { contactId -> backStack.add(ContactDetails(contactId = contactId)) },
+                    navigateToDetails = { contactId ->
+                        val previous = backStack.firstOrNull { it is ContactDetails }
+                        backStack.add(ContactDetails(contactId = contactId))
+                        previous?.let { backStack.remove(it) }
+
+                    }
                 )
             }
             entry<ContactDetails>(

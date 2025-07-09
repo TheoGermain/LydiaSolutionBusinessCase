@@ -12,4 +12,5 @@
     <string name="append_contacts_error">Unable to retrieve more contacts, check your connection and try again later.</string>
     <string name="retry">Retry</string>
     <string name="back">Back</string>
+    <string name="choose_a_contact_from_the_list">Choose a contact from the list</string>
 </resources>
